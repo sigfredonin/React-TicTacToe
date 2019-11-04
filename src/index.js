@@ -58,6 +58,7 @@ class Game extends React.Component {
             history: [{
                 squares: Array(9).fill(null)
             }],
+            stepNumber: 0,
             xIsNext: true
         }
     }
@@ -67,12 +68,13 @@ class Game extends React.Component {
             history: [{
                 squares: Array(9).fill(null)
             }],
+            stepNumber: 0,
             xIsNext: true
         });
     }
 
     handleClick(i) {
-        const history = this.state.history;
+        const history = this.state.history.slice(0, this.state.stepNumber + 1);
         const current = history[history.length - 1];
         const squares = current.squares.slice();
         if (this.calculateWinner(squares) || squares[i]) {
@@ -83,6 +85,7 @@ class Game extends React.Component {
             history: history.concat([{
                 squares: squares
             }]),
+            stepNumber: history.length,
             xIsNext: !this.state.xIsNext
         });
     }
@@ -121,15 +124,28 @@ class Game extends React.Component {
         return null;
     }
     
+    jumpTo(step) {
+        const toStep = Math.max(0, Math.min(this.state.history.length-1, step));
+        this.setState({
+            stepNumber: toStep,
+            xIsNext: (toStep % 2) === 0
+        })
+    }
+
     render() {
         const history = this.state.history;
-        const current = history[history.length - 1];
-        const winner = this.calculateWinner(current.squares);
+        const current = history[this.state.stepNumber];
+        let winner = this.calculateWinner(current.squares);
         let status;
         if (winner) {
             status = 'Winner: ' + winner;
         } else {
-            status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+            if (this.state.stepNumber === 9) {
+                winner = 'None';
+                status = 'Tie';
+            } else {
+                status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+            }
         }
 
         return (
@@ -145,6 +161,14 @@ class Game extends React.Component {
                 </div>
                 <div className="game-info">
                     <div>{status}</div>
+                    <div> </div>
+                    <div>
+                        <button onClick={()=>this.jumpTo(this.state.stepNumber-1)}>U</button>
+                    </div>
+                    <div>Step: {this.state.stepNumber}</div>
+                    <div>
+                        <button onClick={()=>this.jumpTo(this.state.stepNumber+1)}>D</button>
+                    </div>
                     <ol>{/* TODO */}</ol>
                 </div>
             </div>
