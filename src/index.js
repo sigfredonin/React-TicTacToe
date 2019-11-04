@@ -142,7 +142,7 @@ class Game extends React.Component {
         } else {
             if (this.state.stepNumber === 9) {
                 winner = 'None';
-                status = 'Tie';
+                status = 'Draw';
             } else {
                 status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
             }
@@ -164,14 +164,24 @@ class Game extends React.Component {
                         </div>
                     </div>
                     <div className="game-info">
-                        <div>{status}</div>
+                        <div className="status">
+                            {status}
+                        </div>
                         <div><p></p></div>
                         <div>
-                            <button onClick={()=>this.jumpTo(this.state.stepNumber-1)}>U</button>
+                            <button  className="up-down"
+                                onClick={()=>this.jumpTo(this.state.stepNumber-1)}
+                            >
+                                {'\u{21E7}'}
+                            </button>
                         </div>
                         <div>Step: {this.state.stepNumber}</div>
                         <div>
-                            <button onClick={()=>this.jumpTo(this.state.stepNumber+1)}>D</button>
+                            <button className="up-down"
+                                onClick={()=>this.jumpTo(this.state.stepNumber+1)}
+                            >
+                                {'\u{21E9}'}
+                            </button>
                         </div>
                     </div>
                 </div>
