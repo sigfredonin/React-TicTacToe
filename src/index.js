@@ -161,7 +161,7 @@ class Game extends React.Component {
                 </div>
                 <div className="game-info">
                     <div>{status}</div>
-                    <div> </div>
+                    <div><p></p></div>
                     <div>
                         <button onClick={()=>this.jumpTo(this.state.stepNumber-1)}>U</button>
                     </div>
@@ -169,7 +169,6 @@ class Game extends React.Component {
                     <div>
                         <button onClick={()=>this.jumpTo(this.state.stepNumber+1)}>D</button>
                     </div>
-                    <ol>{/* TODO */}</ol>
                 </div>
             </div>
         );
