@@ -149,25 +149,30 @@ class Game extends React.Component {
         }
 
         return (
-            <div className="game">
-                <div className="game-board">
-                    <Board 
-                        squares = { current.squares }
-                        onClick = { (i) => this.handleClick(i)}
-                    />
-                    <div>
-                        {this.renderNewGame(winner)}
-                    </div>
+            <div>
+                <div>
+                    <h3>Tic-Tac-Toe</h3>   
                 </div>
-                <div className="game-info">
-                    <div>{status}</div>
-                    <div><p></p></div>
-                    <div>
-                        <button onClick={()=>this.jumpTo(this.state.stepNumber-1)}>U</button>
+                <div className="game">
+                    <div className="game-board">
+                        <Board 
+                            squares = { current.squares }
+                            onClick = { (i) => this.handleClick(i)}
+                        />
+                        <div>
+                            {this.renderNewGame(winner)}
+                        </div>
                     </div>
-                    <div>Step: {this.state.stepNumber}</div>
-                    <div>
-                        <button onClick={()=>this.jumpTo(this.state.stepNumber+1)}>D</button>
+                    <div className="game-info">
+                        <div>{status}</div>
+                        <div><p></p></div>
+                        <div>
+                            <button onClick={()=>this.jumpTo(this.state.stepNumber-1)}>U</button>
+                        </div>
+                        <div>Step: {this.state.stepNumber}</div>
+                        <div>
+                            <button onClick={()=>this.jumpTo(this.state.stepNumber+1)}>D</button>
+                        </div>
                     </div>
                 </div>
             </div>
